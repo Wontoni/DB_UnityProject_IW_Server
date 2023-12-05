@@ -26,3 +26,18 @@ export const getUserByEmail = async (email) => {
   const result = await database.query(query, params);
   return result[0][0];
 };
+
+export const getUserSave = async (user_id) => {
+  const query = `
+  SELECT 
+    last_xpos,
+    last_ypos,
+    save_datetime,
+    is_slime_defeated
+  FROM save_data
+  WHERE user_id = :user_id
+`;
+
+const result = await database.query(query, { user_id });
+return result[0][0];
+}
