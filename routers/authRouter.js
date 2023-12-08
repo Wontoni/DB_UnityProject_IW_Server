@@ -27,14 +27,14 @@ router.post("/register", async (req, res) => {
       res.json({ success: true });
       return;
     }
-    res.status(500).json({ message: "Error registering user" });
+    res.status(500).json({ success: false, message: "Error registering user" });
   } catch (error) {
     console.log(error);
     if (error.code === "ER_DUP_ENTRY") {
-      res.status(403).json({ message: "User or email already exists" });
+      res.status(403).json({ success: false, message: "User or email already exists" });
       return;
     }
-    res.status(500).json({ message: "Error registering user" });
+    res.status(500).json({ success: false, message: "Error registering user" });
   }
 });
 
@@ -44,31 +44,22 @@ router.post("/login", async (req, res) => {
   try {
     const user = await db_auth.getUserByEmail(email);
     if (!user) {
-      res.json({ message: "User not found" });
+      res.json({ success: false, message: "User not found" });
       return;
     }
     if (!(await compare(password, user.password))) {
-      res.json({ message: "Incorrect password" });
+      res.json({ success: false, message: "Incorrect password" });
       return;
     }
     req.session.authenticated = true;
     req.session.user_id = user.user_id;
     req.session.username = user.username;
 
-    let saveData;
-    if(user.has_save) {
-      saveData = await db_auth.getUserSave(user.user_id);
-    }
-    const userInfo = {
-      username: user.username,
-      saveData: saveData
-    };
-    
 
-    res.json({ success: true, user: userInfo });
+    res.json({ success: true, message: "Succesfully logged in" });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Error logging in" });
+    res.status(500).json({ success: false, message: "Error logging in" });
     return;
   }
 });

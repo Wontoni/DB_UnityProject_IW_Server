@@ -12,6 +12,7 @@ import { printMySQLVersion } from "./database/db_utils.js";
 printMySQLVersion();
 
 import authRouter from "./routers/authRouter.js";
+import saveRouter from "./routers/saveRouter.js";
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(cookieParser());
 app.use(expressSession(sessionConfig));
 
 app.use("/auth", authRouter);
+app.use("/save", saveRouter);
 
 app.get('/', (req,res) => { // Homepage
     res.send("ya mum yah?")
