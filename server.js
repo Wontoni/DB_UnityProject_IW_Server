@@ -13,6 +13,7 @@ printMySQLVersion();
 
 import authRouter from "./routers/authRouter.js";
 import saveRouter from "./routers/saveRouter.js";
+import lbRouter from "./routers/lbRouter.js"
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(expressSession(sessionConfig));
 
 app.use("/auth", authRouter);
 app.use("/save", saveRouter);
+app.use("/leaderboard", lbRouter)
 
 app.get('/', (req,res) => { // Homepage
     res.send("ya mum yah?")
