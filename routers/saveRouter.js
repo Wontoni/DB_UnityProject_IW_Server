@@ -14,8 +14,10 @@ router.post("/newSaveData", async (req, res) => {
       last_ypos: req.body.last_ypos,
       timer: req.body.timer,
       save_datetime: new Date(),
-      is_slime_defeated: req.body.is_slime_defeated
+      is_slime_defeated: req.body.is_slime_defeated,
+      is_pumpkin_defeated: req.body.is_pumpkin_defeated
     }
+
     let success;
     if (req.body.has_save == true) {
       // Update query
@@ -48,6 +50,7 @@ router.post("/saveData", async (req, res) => {
       last_ypos: saveData.last_ypos, 
       save_datetime: saveData.save_datetime, 
       is_slime_defeated: saveData.is_slime_defeated,
+      is_pumpkin_defeated: saveData.is_pumpkin_defeated,
       timer: saveData.timer});
       return;
     } else {

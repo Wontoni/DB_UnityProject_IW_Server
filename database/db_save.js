@@ -2,8 +2,8 @@ import database from "./db_connection.js";
 
 export const newUserSave = async (saveData) => {
     const query = `
-    INSERT INTO save_data (user_id, last_xpos, last_ypos, timer, save_datetime, is_slime_defeated) 
-    VALUES (:user_id, :last_xpos, :last_ypos, :timer, :save_datetime, :is_slime_defeated);
+    INSERT INTO save_data (user_id, last_xpos, last_ypos, timer, save_datetime, is_slime_defeated, is_pumpkin_defeated) 
+    VALUES (:user_id, :last_xpos, :last_ypos, :timer, :save_datetime, :is_slime_defeated, :is_pumpkin_defeated);
     `;
 
   const params = saveData;
@@ -15,7 +15,7 @@ export const newUserSave = async (saveData) => {
 export const setUserSave = async (saveData) => {
     const query = `
         UPDATE save_data SET last_xpos = :last_xpos, last_ypos = :last_ypos, timer = :timer, 
-        save_datetime = :save_datetime, is_slime_defeated = :is_slime_defeated
+        save_datetime = :save_datetime, is_slime_defeated = :is_slime_defeated, is_pumpkin_defeated = :is_pumpkin_defeated
         WHERE user_id = :user_id;
       `;
   
@@ -30,6 +30,7 @@ export const getUserSave = async (user_id) => {
     last_ypos,
     save_datetime,
     is_slime_defeated,
+    is_pumpkin_defeated,
     timer
   FROM save_data
   WHERE user_id = :user_id
