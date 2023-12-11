@@ -23,3 +23,5 @@ router.get('/getLeaderboardData', async (req, res) => {
         return;
       }
 })
+
+export default router;
