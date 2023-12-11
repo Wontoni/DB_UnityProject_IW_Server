@@ -2,10 +2,10 @@ import database from "./db_connection.js";
 
 export const getLeaderboardData = async (saveData) => {
     const query = `
-    SELECT username, times
+    SELECT username, timer
     FROM completed_runs
     JOIN user USING (user_id)
-    ORDER BY times ASC
+    ORDER BY timer ASC
     LIMIT 8;
     `;
 
