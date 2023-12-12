@@ -5,6 +5,7 @@ import * as db_auth from "../database/db_auth.js";
 const hashCount = 12;
 const router = Router();
 const hashSalt = genSaltSync(hashCount);
+const expireTime = 60 * 60 * 1000;
 
 router.get("/", (_, res) => {
   res.send("Welcome to authentication router!");
@@ -55,6 +56,12 @@ router.post("/login", async (req, res) => {
     req.session.user_id = user.user_id;
     req.session.username = user.username;
 
+    res.cookie("session", req.sessionID, {
+      path: "/",
+      httpOnly: true,
+      maxAge: expireTime,
+      secure: true,
+    });
 
     res.json({ success: true, message: "Succesfully logged in" });
   } catch (err) {
